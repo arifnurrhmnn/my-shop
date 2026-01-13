@@ -1,0 +1,13 @@
+/* Custom SASS styles */
+/* Only use if needed for custom styling beyond Tailwind */
+
+/* Mobile-only container */
+.container-mobile {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (min-width: 640px) {
+    max-width: 640px;
+  }
+}
