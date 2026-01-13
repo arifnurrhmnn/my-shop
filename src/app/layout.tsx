@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ReduxProvider } from "@/components/providers";
+import { JsonLd } from "@/components/seo";
 import { Toaster } from "sonner";
+import { defaultMetadata, defaultViewport } from "@/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,10 +16,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Simple Shop Etalase",
-  description: "Simple Shop Etalase - Mobile Catalog",
-};
+export const metadata = defaultMetadata;
+export const viewport = defaultViewport;
 
 export default function RootLayout({
   children,
@@ -26,7 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="id">
+      <head>
+        <JsonLd />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       >
