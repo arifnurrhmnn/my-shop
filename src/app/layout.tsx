@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ReduxProvider } from "@/components/providers";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Toaster position="top-center" richColors />
         </ReduxProvider>
       </body>
+      <GoogleAnalytics gaId="G-9DBC3FXSF8" />
     </html>
   );
 }
