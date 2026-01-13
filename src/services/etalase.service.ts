@@ -16,7 +16,7 @@ export const etalaseService = {
     const { data, error } = await supabase
       .from("etalases")
       .select("*")
-      .order("etalase_number", { ascending: true })
+      .order("etalase_number", { ascending: false })
       .range(offset, offset + limit - 1);
 
     if (error) {
@@ -32,13 +32,14 @@ export const etalaseService = {
   /**
    * Search etalases by etalase_number
    * @param searchTerm - 3 digit number string
+   * Sorted by etalase_number descending (newest/largest first)
    */
   async searchByNumber(searchTerm: string): Promise<Etalase[]> {
     const { data, error } = await supabase
       .from("etalases")
       .select("*")
       .ilike("etalase_number", `%${searchTerm}%`)
-      .order("etalase_number", { ascending: true });
+      .order("etalase_number", { ascending: false });
 
     if (error) {
       throw new Error(error.message);
@@ -112,12 +113,13 @@ export const etalaseService = {
 
   /**
    * Get all etalases (for admin table)
+   * Sorted by etalase_number descending (newest/largest first)
    */
   async getAllEtalases(): Promise<Etalase[]> {
     const { data, error } = await supabase
       .from("etalases")
       .select("*")
-      .order("etalase_number", { ascending: true });
+      .order("etalase_number", { ascending: false });
 
     if (error) {
       throw new Error(error.message);
