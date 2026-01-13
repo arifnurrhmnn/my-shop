@@ -22,7 +22,7 @@ export function Header({ searchValue, onSearchChange }: HeaderProps) {
               SE
             </AvatarFallback>
           </Avatar>
-          
+
           {/* Title and Subtitle on the right */}
           <div className="flex flex-col">
             <h1 className="text-xl font-bold text-white drop-shadow-sm">
