@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface HeaderProps {
   searchValue: string;
@@ -10,6 +12,29 @@ interface HeaderProps {
 }
 
 export function Header({ searchValue, onSearchChange }: HeaderProps) {
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Track search with debounce (500ms delay)
+  useEffect(() => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    if (searchValue.trim()) {
+      debounceTimer.current = setTimeout(() => {
+        sendGAEvent("event", "search", {
+          search_term: searchValue.trim(),
+        });
+      }, 500);
+    }
+
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, [searchValue]);
+
   return (
     <header className="sticky top-0 z-10">
       {/* Profile Section with Green Gradient */}

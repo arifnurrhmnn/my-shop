@@ -1,6 +1,7 @@
 "use client";
 
 import { Etalase } from "@/types";
+import { sendGAEvent } from "@next/third-parties/google";
 import Image from "next/image";
 
 interface EtalaseCardProps {
@@ -10,6 +11,13 @@ interface EtalaseCardProps {
 
 export function EtalaseCard({ etalase, index }: EtalaseCardProps) {
   const handleClick = () => {
+    // Track click event to Google Analytics
+    sendGAEvent("event", "etalase_click", {
+      etalase_number: etalase.etalase_number,
+      affiliate_url: etalase.affiliate_url,
+      etalase_id: etalase.id,
+    });
+
     window.open(etalase.affiliate_url, "_blank", "noopener,noreferrer");
   };
 
